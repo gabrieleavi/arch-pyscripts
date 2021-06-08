@@ -9,7 +9,6 @@ from time import sleep
 from efi_mbr import *
 from ker_and_ed import *
 from arch_chroot import arch_chroot_install
-from decision import *
 from partitions import *
 
 def arch_install_iso():
