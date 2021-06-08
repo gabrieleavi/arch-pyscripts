@@ -105,7 +105,7 @@ def arch_install_iso():
             # Using parted to partition the drives
             system("parted {} mklabel msdos" .format(part))
             system("parted {} mkpart primary ext4 1Mib 100%" .format(part))
-            system("parted set 1 boot on")
+            system("parted set {} boot on" .format(part))
             # Formatting the file systems
             system("mkfs.ext4 {}1" .format(part))
             system("mount {}1 /mnt" .format(part))
