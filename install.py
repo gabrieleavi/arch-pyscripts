@@ -97,6 +97,8 @@ def arch_install_iso():
             sleep(3)
             system("mount -v {}1 /mnt/boot/efi")
             sleep(3)
+            system("lsblk")
+            sleep(5)
         if mbr_check():
             print("The system is using MBR...")
             print("Creating the partitions for a MBR system...")
