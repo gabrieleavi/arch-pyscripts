@@ -82,9 +82,9 @@ def arch_install_iso():
             print("Creating a EFI partition in the disk...")
             # Using parted to partition the drives
             system("parted {} mklabel gpt" .format(part))
-            system("parted {} mkpart fat32 1Mib 200MiB" .format(part))
-            system("parted {} mkpart linux-swap 200MiB 4GiB" .format(part))
-            system("parted {} mkpart ext4 4GiB 100%" .format(part))
+            system("parted {} mkpart EFI fat32 1Mib 200MiB" .format(part))
+            system("parted {} mkpart swap linux-swap 200MiB 4GiB" .format(part))
+            system("parted {} mkpart home ext4 4GiB 100%" .format(part))
             print("Mounting the partitions...")
             # Formatting the file systems
             system("mkfs.fat -F32 {}1" .format(part))
@@ -95,7 +95,7 @@ def arch_install_iso():
             system("mount {}3 /mnt" .format(part))
             system("mkdir -p -v /mnt/boot/efi")
             sleep(3)
-            system("mount -v {}1 /mnt/boot/efi")
+            system("mount -v {}1 /mnt/boot/efi" .format(part))
             sleep(3)
             system("lsblk")
             sleep(5)
