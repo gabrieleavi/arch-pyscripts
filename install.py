@@ -126,4 +126,3 @@ def arch_install_iso():
 
 if __name__ == '__main__':
     arch_install_iso()
-    arch_chroot_install()
