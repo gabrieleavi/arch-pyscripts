@@ -93,8 +93,10 @@ def arch_install_iso():
             system("mkfs.ext4 {}3" .format(part))
             # Mounting the partitions
             system("mount {}3 /mnt" .format(part))
-            system("mkdir -p /mnt/boot/efi")
-            system("mount {}1 /mnt/boot/efi")
+            system("mkdir -p -v /mnt/boot/efi")
+            sleep(3)
+            system("mount -v {}1 /mnt/boot/efi")
+            sleep(3)
         if mbr_check():
             print("The system is using MBR...")
             print("Creating the partitions for a MBR system...")
@@ -110,7 +112,7 @@ def arch_install_iso():
         system("clear")
         print("Now the script will install the base packages with pacstrap")
         sleep(3)
-        system("pacstrap /mnt base {0} linux-firmware {1}" .format(ker, texed))
+        system("pacstrap /mnt base {0} linux-firmware {1} git python3" .format(ker, texed))
 
         # Generating the fstab
         system("genfstab -U /mnt >> /mnt/etc/fstab")
