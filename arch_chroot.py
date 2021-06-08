@@ -73,7 +73,11 @@ def arch_chroot_install():
         # Installing the bootloader
         print("Now the script will install the GRUB bootloader...")
         time.sleep(3)
-        os.system("grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB")
+        if efi_check():
+            os.system("grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB")
+        if mbr_check():
+            part = input("Please input the disk in which you installed arch linux (e.g. /dev/sda) ")
+            os.system("grub-install --target=i386-pc {}" .format(part))
         os.system("grub-mkconfig -o /boot/grub/grub.cfg")
         # Activating the services
         print("Now the different services will be activated using systemctl")
