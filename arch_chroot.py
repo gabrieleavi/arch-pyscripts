@@ -19,7 +19,7 @@ def arch_chroot_install():
         elif ker == "2":
             ker = "linux-lts"
         elif ker == "3":
-            ler = "linux-hardened"
+            ker = "linux-hardened"
         elif ker == "4":
             ker = "linux-zen"
 
