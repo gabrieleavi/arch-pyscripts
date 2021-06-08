@@ -2,8 +2,6 @@ from install import *
 import os
 import time
 from efi_mbr import *
-from ker_and_ed import *
-
 
 def arch_chroot_install():
         # Keyboard setup
@@ -85,9 +83,14 @@ def arch_chroot_install():
         os.system("systemctl enable cups")
         # Setting up the user
         os.system("useradd -mG wheel {}" .format(name))
+        os.system("passwd {}" .format(name))
         print("Now you will be redirected to the sudoers file, if you want to give the new account sudo privileges, you can do it now...")
         time.sleep(3)
         os.system("EDITOR={} visudo" .format(texed))
         print("Now the installation is complete, you will need to reboot, after you exited the chroot and umounted all the partition with 'umount -a' ")
         time.sleep(2)
         print("Thank you for using this script!")
+
+
+if __name__ == '__main__':
+    arch_chroot_install()
