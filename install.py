@@ -37,7 +37,7 @@ def arch_install_iso():
         elif ker == "3":
             ker = "linux-hardened"
         elif ker == "4":
-            ker = "linux-linux_zen"
+            ker = "linux-zen"
 
         texed = input("""Please choose a text editor:
         1. nano
