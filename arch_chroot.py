@@ -1,4 +1,4 @@
-import arch_linux_install
+import install
 import os
 import time
 from efi_mbr import *
