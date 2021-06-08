@@ -7,7 +7,6 @@
 from os import system
 from time import sleep
 from efi_mbr import *
-from ker_and_ed import *
 from arch_chroot import *
 
 def arch_install_iso():
@@ -32,13 +31,13 @@ def arch_install_iso():
         (input the full name or number): """)
 
         if ker == "1":
-            linux()
+            ker = "linux"
         elif ker == "2":
-            linux_lts()
+            ker = "linux-lts"
         elif ker == "3":
-            linux_hardened()
+            ker = "linux-hardened"
         elif ker == "4":
-            linux_zen()
+            ker = "linux-linux_zen"
 
         texed = input("""Please choose a text editor:
         1. nano
@@ -48,13 +47,13 @@ def arch_install_iso():
         (input the full name or number): """)
 
         if texed == "1":
-            nano()
+            texed = "nano"
         elif texed == "2":
-            vim()
+            texed = "vim"
         elif texed == "3":
-            neovim()
+            texed = "neovim"
         elif texed == "4":
-            vi()
+            texed = "vi"
 
         # Verifying network connection
         network = input("Do you have an Internet connection ready? [y/n] ")
