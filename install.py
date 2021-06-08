@@ -33,7 +33,14 @@ def arch_install_iso():
         4. linux-zen
         (input the full name or number): """)
 
-        ker_decision()
+        if ker == "1":
+            linux()
+        elif ker == "2":
+            linux_lts()
+        elif ker == "3":
+            linux_hardened()
+        elif ker == "4":
+            linux_zen()
 
         texed = input("""Please choose a text editor:
         1. nano
@@ -42,7 +49,14 @@ def arch_install_iso():
         4. vi
         (input the full name or number): """)
 
-        texed_decision()
+        if texed == "1":
+            nano()
+        elif texed == "2":
+            vim()
+        elif texed == "3":
+            neovim()
+        elif texed == "4":
+            vi()
 
         # Verifying network connection
         network = input("Do you have an Internet connection ready? [y/n] ")
@@ -80,7 +94,7 @@ def arch_install_iso():
         # Generating the fstab
         system("genfstab -U /mnt >> /mnt/etc/fstab")
         print("Now the script will chroot and continue the installation from there!")
-        
+
         # Chrooting
         system("arch-chroot /mnt")
 
