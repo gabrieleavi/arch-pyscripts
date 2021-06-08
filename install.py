@@ -100,7 +100,7 @@ def arch_install_iso():
             print("The system is using MBR...")
             print("Creating the partitions for a MBR system...")
             # Using parted to partition the drives
-            system("parted {} mklabel mbr" .format(part))
+            system("parted {} mklabel msdos" .format(part))
             system("parted {} mkpart primary ext4 1Mib 100%")
             system("parted set 1 boot on")
             # Formatting the file systems
