@@ -11,5 +11,5 @@ def efi_check():
 def mbr_check():
     import os
 
-    ver_mbr = os.popen("ls /sys/frimware/efi").read()
+    ver_mbr = os.popen("ls /sys/firmware/efi").read()
     return ver_mbr == ""

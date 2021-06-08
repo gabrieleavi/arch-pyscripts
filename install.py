@@ -9,8 +9,6 @@ from time import sleep
 from efi_mbr import *
 from ker_and_ed import *
 from arch_chroot import *
-from decision import *
-from partitions import *
 
 def arch_install_iso():
     print("Welcome to the Arch Linux Install script! It will guide you through all the process to have a complete system working!")
@@ -85,7 +83,7 @@ def arch_install_iso():
             print("Creating a EFI partition in the disk...")
             # Using parted to partition the drives
             system("parted {} mklabel gpt" .format(part))
-            system("parted {} mkpart fat32 1Mib 200MiB")
+            system("parted {} mkpart fat32 1Mib 200MiB" .format(part))
             system("parted {} mkpart linux-swap 200MiB 4GiB" .format(part))
             system("parted {} mkpart ext4 4GiB 100%" .format(part))
             print("Mounting the partitions...")
