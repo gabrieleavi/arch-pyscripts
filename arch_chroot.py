@@ -17,13 +17,13 @@ def arch_chroot_install():
         (input the full name or number): """)
 
         if ker == "1":
-            linux()
+            ker = "linux"
         elif ker == "2":
-            linux_lts()
+            ker = "linux-lts"
         elif ker == "3":
-            linux_hardened()
+            ler = "linux-hardened"
         elif ker == "4":
-            linux_zen()
+            ker = "linux-zen"
 
         texed = input("""Please select the text editor you installed before:
         1. nano
@@ -33,13 +33,13 @@ def arch_chroot_install():
         (input the full name or number): """)
 
         if texed == "1":
-            nano()
+            texed = "nano"
         elif texed == "2":
-            vim()
+            texed = "vim"
         elif texed == "3":
-            neovim()
+            texed = "neovim"
         elif texed == "4":
-            vi()
+            texed = "vi"
         name = input("Insert the username for your account: ")
         host = input("Please put your desired hostname: ")
         network1, network2, network3 = "127.0.0.1   localhost", "::1    localhost", str("127.0.1.1  {}.localdomain  {}" .format(host, host))
@@ -55,13 +55,13 @@ def arch_chroot_install():
         os.system("{} /etc/locale.gen" .format(texed))
         print("Generating the locales...")
         os.system("locale-gen")
-        os.system("echo LANG={} /etc/locale.conf" .format(loc))
-        os.system("echo KEYMAP={} /etc/vconsole.conf" .format(kb))
+        os.system("echo LANG={} >> /etc/locale.conf" .format(loc))
+        os.system("echo KEYMAP={} >> /etc/vconsole.conf" .format(kb))
         # Setting the hostname and the network file
-        os.system("echo {} /etc/hostname" .format(host))
-        os.system("echo {} /etc/hosts" .format(network1))
-        os.system("echo {} /etc/hosts" .format(network2))
-        os.system("echo {} /etc/hosts" .format(network3))
+        os.system("echo {} >> /etc/hostname" .format(host))
+        os.system("echo {} >> /etc/hosts" .format(network1))
+        os.system("echo {} >> /etc/hosts" .format(network2))
+        os.system("echo {} >> /etc/hosts" .format(network3))
         # Setting the root password
         rootpsw = input("Now you can input the root password... do you want to do it? [y/n] ")
         if rootpsw == "y" or rootpsw == "Y":
