@@ -83,6 +83,9 @@ def arch_chroot_install():
         os.system("systemctl enable cups")
         # Setting up the user
         os.system("useradd -mG wheel {}" .format(name))
+        os.system("clear")
+        print("Now insert the password for your user account.")
+        time.sleep(3)
         os.system("passwd {}" .format(name))
         print("Now you will be redirected to the sudoers file, if you want to give the new account sudo privileges, you can do it now...")
         time.sleep(3)
