@@ -78,27 +78,49 @@ def arch_install_iso():
         part = input("Select the desired disk you want to partition (e.g. /dev/sda) ")
         print("Partitioning the drive...")
         if efi_check():
-            print("The system is using EFI...")
-            print("Creating a EFI partition in the disk...")
-            # Using parted to partition the drives
-            system("parted {} mklabel gpt" .format(part))
-            system("parted {} mkpart EFI fat32 1Mib 200MiB" .format(part))
-            system("parted {} mkpart swap linux-swap 200MiB 4GiB" .format(part))
-            system("parted {} mkpart home ext4 4GiB 100%" .format(part))
-            print("Mounting the partitions...")
-            # Formatting the file systems
-            system("mkfs.fat -F32 {}1" .format(part))
-            system("mkswap {}2" .format(part))
-            system("swapon {}2" .format(part))
-            system("mkfs.ext4 {}3" .format(part))
-            # Mounting the partitions
-            system("mount {}3 /mnt" .format(part))
-            system("mkdir -p -v /mnt/boot/efi")
-            sleep(3)
-            system("mount -v {}1 /mnt/boot/efi" .format(part))
-            sleep(3)
-            system("lsblk")
-            sleep(5)
+            db_check = input("Do you want to make a dual boot system? [y/n] ")
+            if db_check == "y" or db_check == "Y":
+                system("fdisk -l")
+                sleep(1)
+                efi_user = input("Please insert the existent EFI partition (e.g. /dev/sda1): ")
+                print("""You will now be redirected to cfdisk, a CLI (Command Line Interface) tool that will help you manage your disk partitions!
+                Please follow the installation wiki for Arch Linux found at this link: https://wiki.archlinux.org/title/Installation_guide. You will only need
+                to create a linux filesystem partition and, if you want, a swap partition.""")
+                sleep(10)
+                system("cfdisk {}" .format(part))
+                system("fdisk -l")
+                sleep(5)
+                check = input("Please input the linux filesystem partition (e.g. /dev/sda5): ")
+                swap = input("Please input the swap partition, if you created one in cfdisk (e.g. /dev/sda6): ")
+                system("mkfs.ext4 {}" .format(check))
+                if swap != "":
+                    system("mkswap {}" .format(swap))
+                    system("swapon {}" .format(swap))
+                system("mount {} /mnt" .format(check))
+                system("mkdir -p /mnt/boot/efi")
+                system("mount {} /mnt/boot/efi" .format(efi_user))
+            else:
+                print("The system is using EFI...")
+                print("Creating a EFI partition in the disk...")
+                # Using parted to partition the drives
+                system("parted {} mklabel gpt".format(part))
+                system("parted {} mkpart EFI fat32 1Mib 200MiB".format(part))
+                system("parted {} mkpart swap linux-swap 200MiB 4GiB".format(part))
+                system("parted {} mkpart home ext4 4GiB 100%".format(part))
+                print("Mounting the partitions...")
+                # Formatting the file systems
+                system("mkfs.fat -F32 {}1".format(part))
+                system("mkswap {}2".format(part))
+                system("swapon {}2".format(part))
+                system("mkfs.ext4 {}3".format(part))
+                # Mounting the partitions
+                system("mount {}3 /mnt".format(part))
+                system("mkdir -p -v /mnt/boot/efi")
+                sleep(3)
+                system("mount -v {}1 /mnt/boot/efi".format(part))
+                sleep(3)
+                system("lsblk")
+                sleep(5)
         if mbr_check():
             print("The system is using MBR...")
             print("Creating the partitions for a MBR system...")
