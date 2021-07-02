@@ -51,10 +51,10 @@ if __name__ == '__main__':
             : """))
             if clean == 1:
                 os.system("sudo pacman --noconfirm -S bleachbit")
-                os.system("sudo bleachbit")
+                os.system("bleachbit")
             elif clean == 2:
                 os.system("paru -S stacer")
-                os.system("sudo stacer")
+                os.system("stacer")
 
     print("Continuing the script...")
     time.sleep(3)
